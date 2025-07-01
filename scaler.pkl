@@ -1,0 +1,31 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.preprocessing import StandardScaler
+
+# Example: Load your dataset
+# df = pd.read_csv("Algerian_forest_fires_cleaned_dataset.csv")  # Uncomment and use your real dataset
+
+# Select numeric columns only
+numeric_cols = df.select_dtypes(include=['number'])
+
+# Step 1: Plot original data
+plt.figure(figsize=(14, 6))
+sns.boxplot(data=numeric_cols)
+plt.title("Before Standard Scaling")
+plt.xticks(rotation=90)
+plt.show()
+
+# Step 2: Apply StandardScaler
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(numeric_cols)
+
+# Convert scaled data back to DataFrame (for plotting)
+scaled_df = pd.DataFrame(scaled_data, columns=numeric_cols.columns)
+
+# Step 3: Plot scaled data
+plt.figure(figsize=(14, 6))
+sns.boxplot(data=scaled_df)
+plt.title("After Standard Scaling")
+plt.xticks(rotation=90)
+plt.show()
